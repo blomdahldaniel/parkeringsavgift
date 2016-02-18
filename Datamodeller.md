@@ -3,6 +3,7 @@
 ## Anvandare::class
 * `id`
 * `namn`
+* `parkeringar -> hasMany(Parking::class)`
 
 ## Parkering::class
 * `id`
@@ -13,7 +14,7 @@
 * `kostnad`
 * `kostnad_data (json)`
 
-**Har metoder som aggerar genvägar för de rellations-parametrar och funktioner som finns**
+**Har metoder som aggerar genvägar för de rellations-parametrar och metoder som finns**
 
 ---
 
@@ -49,11 +50,11 @@
 
 ----
 ## Klasser som är specialregler
-Alla klasser här styrs av ett inteface som kräver metoden `beraknaTaxa`.
+Alla klasser här styrs av inteface `SpecialparkeringsregelInterface` som kräver metoden `beraknaTaxa` samt andra värden som måste retrneras till huvudlogiken.
 ### ForstaTimmenXkr::class
 * `id`
 * `taxa`
-* `gratis_timme` // om den gäller under gratis timme eller inte
+* `gratis_timme // om den gäller under gratis timme eller inte`
 * `beskrivning`
 * `specialregel ->morphTo()`
 
