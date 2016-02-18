@@ -55,10 +55,9 @@ class ParkeringsregelController extends Controller
         if(array_key_exists($exempelNr, $this->exempelTider)){
             $this->truncateDatabasen();
             $this->skapa_standardparkering_och_anvandare_med_specialregel();
-            $parkering = $this->skapaParkering( $this->exempelTider[$exempelNr]['start'] ); // ursprunglig timestamp:  2016-02-18 00:00:00
-            $parkering->avslutaParkering($this->exempelTider[$exempelNr]['stop']); // Lägg till antal timmar (3600*t+sek)
+            $parkering = $this->skapaParkering( $this->exempelTider[$exempelNr]['start'] );
+            $parkering->avslutaParkering($this->exempelTider[$exempelNr]['stop']);
 
-            // Ännu senare i  applikationen när kostnaden behöver hämtas
             $parkering = Parkering::find(1);
             return view('kvitto', compact('parkering'));
         }
