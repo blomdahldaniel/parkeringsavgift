@@ -22,6 +22,8 @@ Jag valde att göra projektet i Laravel för att inte behöva uppfinna hjulet ig
 Projektet kräver PHP >= 5.5.9 samt övriga paket som [Laravel kräver.](https://laravel.com/docs/5.2/#server-requirements)
 
 1. `composer install`
+2. `cp .env.example .env`
+2. `touch database/database.sqlite`
 2. `php artisan key:generate`
 2. `php artisan migrate`
 
