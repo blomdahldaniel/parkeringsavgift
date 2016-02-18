@@ -13,9 +13,9 @@ Projektet kräver PHP >= 5.5.9 samt övriga paket som [Laravel kräver.](https:/
 ## Om projektet
 Jag valde att göra projektet i Laravel för att inte behöva uppfinna hjulet igen utan kunna använda laravels ORM. Jag började med att försöka plocka ihop *"bara de paket som jag behövde"*. Ganska snabbt blev det ändå massor med paket så då valde jag tillslut att helt gå över till Laravel för att inte krångla till det i onödan.
 
-**Svenska**
+**Språk**
 
-Jag tycker svenskan tjänar ett syfte när det är i form av en konkret och frikopplad uppgift. En slags markering att detta projekt enbart är "på lotsas". I ett riktigt sammanhang hade jag föredragit engelska före svenska.
+Eftersom jag inte är helt inne i branschen (än..) så inser jag att några av mina val av begrepp eller klassnamn kanske kan vara lite off. Jag valde att skriva denna uppgift på svenska. Jag tycker svenskan tjänar ett syfte när det är i form av en konkret och frikopplad uppgift. En slags markering att detta projekt enbart är "på lotsas" där koden representerar en "manual" för hur jag skulle gjort. I ett riktigt sammanhang hade jag föredragit engelska före svenska.
 
 ### Förenklad beskrivning av förlopp
 1. Ett parkeringsområde skapas med tillhörande regler och information
