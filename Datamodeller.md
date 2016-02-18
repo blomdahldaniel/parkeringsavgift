@@ -6,8 +6,8 @@
 
 ## Parkering::class
 * `id`
-* `stop_tid`
-* `start_tid`
+* `stop_tid //timestamp`
+* `start_tid //timestamp`
 * `anvandare_id -> belongsTo(Anvandare::class)`
 * `(parkeringsomrade_id) -> belongsTo(Parkeringsomrade::class)`
 * `kostnad`
@@ -29,8 +29,8 @@
 
 ## Parkeringsregel::class
 * `id`
-* `start_tid` // ex. 09:00
-* `stop_tid` // ex. 18:00
+* `start_tid //ex. 09:00`
+* `stop_tid //ex. 18:00`
 * `taxa`
 * `beskrivning`
 * `parkeringsomraden -> belongsToMany(ParkeringsOmrade::class)`
@@ -49,18 +49,11 @@
 
 ----
 ## Klasser som är specialregler
-Alla klasser här styrs av ett inteface (eller abstrakt??) som kräver metoden `beraknaTaxa§`.
-### ForstaTimmen10krSpecialparkeringsregel::class
+Alla klasser här styrs av ett inteface som kräver metoden `beraknaTaxa`.
+### ForstaTimmenXkr::class
 * `id`
 * `taxa`
 * `gratis_timme` // om den gäller under gratis timme eller inte
 * `beskrivning`
 * `specialregel ->morphTo()`
 
-#### Metoder
-```php
-public function beraknaTaxa(Parkering $parkering){
-    // Beräkningar
-    return 25; // kr
-}
-```
