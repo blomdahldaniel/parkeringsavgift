@@ -20,11 +20,3 @@ Tidpunkter anges med unix timestamp och skall kunna anges med flera dygns skilln
 
 **Till exempel:**  Idag 10:00 -> Idag 12:00 skall bli en total kostnad på 15 kr. (Första timmen 10 kr / tim +
 därefter 5 kr / tim).
-
-
-# Kommentarer
-### Generering av parkerings-taxa
-Istället för att generera taxan som ett svar från en metod, varje gång man behöver taxan, skulle man istället kunna anropa event då sluttiden rapporteras in som sammanställer taxan och sen lägger in värdet in i parkeringsobjektet och lagra i databasen. Detta beroende på hur prestandan
-
-### Begrepp
-Eftersom jag inte är helt inne i branschen (än..) så inser jag att några av mina val av begrepp eller klassnamn kanske kan vara lite off. Jag valde också aktivt att skriva projektet på Svenska denna gången då det känns som om det passar sig bättre i ett *test* eller *uppgift*
