@@ -16,7 +16,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     protected $baseUrl = 'http://localhost';
 
     /*
-     * Här kommer de parametrar som hör till det parkeringsområde
+     * Här är de parametrar som hör till det parkeringsområde
      * som byggs upp vid funktionen: skapa_standardparkering_och_anvandare()
      */
     protected $anvandare;
