@@ -8,7 +8,6 @@ use App\Models\Parkeringsregel;
 use App\Models\Parkeringsomrade;
 use App\Models\Specialparkeringsregel;
 use App\Models\Specialregler\ForstaTimmenXKr;
-use App\Models\Specialregler\AnnanTaxaDagIVecka;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,21 +61,9 @@ Route::get('/', function () {
 
     $forstaTimmen10Kr = ForstaTimmenXKr::create(['taxa' => 10, 'beskrivning' => 'Första timmen (första timmen som inte är 0 kr/tim): 10 kr/tim, därefter gäller vanliga regler']);
 
-    $annanTaxaDagIVecka = AnnanTaxaDagIVecka::create([
-        'taxa' => 15,
-        'gratis_timme' => false,
-        'max_kostnad_per_dygn' => 50,
-        'beskrivning' => 'Taxa för hela dygnet lördag: 15kr/tim. Max taxa per dag är 50kr.',
-        'veckodagar' => [6]]);
-
     $specialparkeringsregel1 = Specialparkeringsregel::create([
         'specialregel_id' => $forstaTimmen10Kr->id,
         'specialregel_type' => 'App\Models\Specialregler\ForstaTimmenXKr',
-    ]);
-
-    $specialparkeringsregel2 = Specialparkeringsregel::create([
-        'specialregel_id' => $annanTaxaDagIVecka->id,
-        'specialregel_type' => 'App\Models\Specialregler\AnnanTaxaDagIVecka',
     ]);
 
     $parkeringsomrade->parkeringsregler()->sync([$pRegel1->id, $pRegel2->id, $pRegel3->id]);
@@ -84,13 +71,13 @@ Route::get('/', function () {
     $parkeringsomrade->specialparkeringsregler()->sync([$specialparkeringsregel1->id]);
 
     $parkering = Parkering::create([
-        'start_tid' => 1455750000+3600*17.25, // ursprunglig timestamp:  2016-02-18 00:00:00
+        'start_tid' => 1455750000+3600*23.25, // ursprunglig timestamp:  2016-02-18 00:00:00
         'anvandare_id' => $anvandare->id,
         'parkeringsomrade_id' => $parkeringsomrade->id,
     ]);
 
     // Senare i applikationen så avslutas en parkering
-    return $parkering->avslutaParkering(1455750000+3600*19.5);
+    return $parkering->avslutaParkering(1455750000+3600*24);
 
     $parkering = Parkering::with([
             'parkeringsomrade',
