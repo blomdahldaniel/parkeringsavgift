@@ -15,9 +15,9 @@
     </testsuites>
     <testsuites>
         <testsuite name="parkeringsregler">
-          <file>tests/parkeringar/TestaParkeringsregel.php</file>
-          <file>tests/parkeringar/TestaSpecialparkeringsregel.php</file>
-          <file>tests/parkeringar/TestaParkeringsregelMedSpecialparkeringsregler.php</file>
+          <file>tests/parkeringsregler/TestaParkeringsregel.php</file>
+          <file>tests/parkeringsregler/TestaSpecialparkeringsregel.php</file>
+          <file>tests/parkeringsregler/TestaParkeringsregelMedSpecialparkeringsregler.php</file>
         </testsuite>
       </testsuites>
     <filter>
