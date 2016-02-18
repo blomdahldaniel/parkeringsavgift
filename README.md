@@ -34,7 +34,6 @@ Jag tycker svenskan tjänar ett syfte när det är i form av en konkret och frik
 * Överblick för datamodellerna finns i filen [Datamodeller.md](./Datamodeller.md)
 * Datamodellerna och klasserna för projektet finns i [`app\Models`](./app/Models) DB migrations finns i `migragrions`
 * TDD [`tests\`](./tests) (Riktigt många snarlika test, ingen raketforskning precis) Kommandot `phpunit --testsuite parkeringsregler` kör samtliga av de testen
-* `Jobs\BeraknaKostnad`
 * [`Jobs\BeraknaKostnad.php`](./app/Jobs/BeraknaKostnad.php)
 * För att bläddra bland *"kvitton"* gå in på projektets root-sida i webbläsaren `/`
 * Lägg till och experimentera enkelt nya tider från `__construct()` i filen `app\Http\Controllers\ParkeringsregelController.php`
