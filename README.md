@@ -13,7 +13,9 @@ Projektet kräver PHP >= 5.5.9 samt övriga paket som [Laravel kräver.](https:/
 ## Om projektet
 Jag valde att göra projektet i Laravel för att inte behöva uppfinna hjulet igen utan kunna använda laravels ORM. Jag började med att försöka plocka ihop *"bara de paket som jag behövde"*. Ganska snabbt blev det ändå massor med paket så då valde jag tillslut att helt gå över till Laravel för att inte krångla till det i onödan.
 
-**Svenska** eftersom uppgiften var formad på svenska så kändes det naturligt att använda svenska. Jag tycker Svenskan tjänar ett syfte såhär när det är i form av en konkret och frikopplad uppgift. En slags markering att detta projekt enbart utgör en mycket liten del av en potentiell helhet. I ett *riktigt* sammanhang hade jag föredragit engelska före Svenska.
+**Svenska**
+
+Jag tycker svenskan tjänar ett syfte när det är i form av en konkret och frikopplad uppgift. En slags markering att detta projekt enbart är "på lotsas". I ett riktigt sammanhang hade jag föredragit engelska före svenska.
 
 ### Förenklad beskrivning av förlopp
 1. Ett parkeringsområde skapas med tillhörande regler och information
@@ -33,15 +35,17 @@ Jag valde att göra projektet i Laravel för att inte behöva uppfinna hjulet ig
 * Datamodellerna och klasserna för projektet finns i `app\Models` (DB migrations finns i `migragrions`)
 * TDD `tests\` (Riktigt många snarlika test, ingen raketforskning precis) Kommandot `phpunit --testsuite parkeringsregler` kör samtliga av de testen
 * `Jobs\BeraknaKostnad`
-* För att se *"kvitto"* gå in på uri `/kvitto`
+* För att bläddra bland *"kvitton"* gå in på projektets root-sida i webbläsaren `/`
+* Lägg till och experimentera enkelt nya tider från `__construct()` i filen `app\Http\Controllers\ParkeringsregelController.php`
 
 ### Om min lösning
-#### Problemidentifiering
+Min ambition var att bygga ett projekt som enkelt kan moduleras med flera olika komponenter i form av parkeringsområden, parkeringsregler (tider), användare och specialregler. Beräkningar av tider sker genom en loop som dag för dag och period för period går över parkeringen. Kostnaden samt data från beräkningen sparas sedan till `parkeringsobjektet`.
+
 **Specialregler**
 
-Specialregler kändes som det mest kluriga. Inte att lösa det logiskt men att bygga så att det blir enkelt att lägga till nya specialregler i framtiden, alltså försöka separera den övergripande logiken med den väldigt specifika special-logiken. Därför försökte jag bygga specialreglerna så frikopplade från huvudprogrammet som möjligt. Därför har jag först en klass som heter **`Specialparkeringsregel`** den klassen pekar sedan vidare genom polymorphiska rellationer till de egentliga specialreglerna. Detta gör det väldigt enkelt att assosiera och ta bort specialregler till ett område.
+Specialregler kändes som det mest kluriga. Inte att lösa det logiskt men att bygga så att det blir enkelt att lägga till nya specialregler i framtiden, alltså försöka separera den övergripande logiken med den väldigt specifika special-logiken. Därför försökte jag bygga specialreglerna så frikopplade från huvudlogiken som möjligt. Därför har jag först en klass som heter `Specialparkeringsregel` den klassen pekar sedan vidare genom polymorfiska rellationer till de egentliga specialreglerna. Detta gör det väldigt enkelt att assosiera och ta bort specialregler till ett område.
 
-All logik måste ske i denna specialregels-klass. Så klassen för att beräkna den första gratis timmen heter `ForstaTimmenXKr.php`. Klassen måste också returnera specifika värden för att den fortsatta hanteringen ska fungera. För att göra det tydligt att dessa parametrar måste sättas så gjorde jag dom till setter-funktioner och som sen då styrs av interfacet för Specialparkeringsregler.
+All logik måste ske i denna specialregels-klass. Så klassen för att beräkna den första gratis timmen heter `ForstaTimmenXKr.php`. Klassen måste också returnera specifika värden för att den fortsatta hanteringen ska fungera. För att göra det tydligt att dessa parametrar måste sättas så gjorde jag dom till setter-funktioner och som sen då styrs av interfacet för Specialparkeringsregler `SpecialparkeringsregelInterface.php`. Alla specialregler ska alltså implementera detta interface.
 
 
 #### Områden som potentiellt behöver förbättras
@@ -51,11 +55,11 @@ Just nu används 2 olika objekt för att hantera tid [Carbon](http://carbon.nesb
 
 **ExceptionHandeling**
 
-Just nu har jag ingen exception handeling i projektet. Detta eftersom inmatningen ändå inte kan ske på fel sätt i denna miljö där det inte fins någon "slutanvändare". Givetvis skulle det här behövas mer sådant vid en riktig implementation. Även tester för att bekräfta dessa exceptions hade också varit ett krav.
+Just nu har jag ingen exception handeling i projektet. Detta eftersom inmatningen ändå inte kan ske på fel sätt i denna miljö där det inte fins någon "slutanvändare". Givetvis skulle det här behövas mer sådant vid en riktig implementation. Även tester för att bekräfta dessa exceptions hade varit ett bra att ha.
 
 **Git**
 
-I detta fall när det handlar om en uppgift där jag själv behöver bygga upp hela projektet själv ser jag inte att git kan tillämpas på ett givande sätt **initialt**. Men när de grova ramarna är satta och förändringar i koden börjar ske. Det är då som Git verkligen blir starkt. Om man inte då skapar och bygger upp ett projekt tillsammans med andra, då måste man ju givetvis jobba på ett annat sätt.
+I detta fall när det handlar om en uppgift där jag själv behöver bygga upp hela projektet själv ser jag inte att git kan tillämpas på ett givande sätt **initialt**. Men när de grova ramarna är satta och förändringar i koden börjar ske, det är då som Git verkligen blir starkt. Men om man skapar och bygger upp ett projekt tillsammans med andra, då måste man ju givetvis jobba på ett annat sätt. Så detta förklarar min korta git-historik i detta projekt.
 
 
 
