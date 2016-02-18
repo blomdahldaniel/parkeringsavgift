@@ -1,6 +1,15 @@
 # Arbetsprov parkeringsavgift 2.1
 Kopia på uppgiften finns [här](./Uppgift Parkeringsavgift 2.1.md)
 
+## Installera projektet
+Projektet kräver PHP >= 5.5.9 samt övriga paket som [Laravel kräver.](https://laravel.com/docs/5.2/#server-requirements)
+
+1. `composer install`
+2. `cp .env.example .env`
+2. `touch database/database.sqlite`
+2. `php artisan key:generate`
+2. `php artisan migrate`
+
 ## Om projektet
 Jag valde att göra projektet i Laravel för att inte behöva uppfinna hjulet igen utan kunna använda laravels ORM. Jag började med att försöka plocka ihop *"bara de paket som jag behövde"*. Ganska snabbt blev det ändå massor med paket så då valde jag tillslut att helt gå över till Laravel för att inte krångla till det i onödan.
 
@@ -17,15 +26,6 @@ Jag valde att göra projektet i Laravel för att inte behöva uppfinna hjulet ig
   * Jobbet tar hänsyn till och ser om det finns specialregler som påverkas
   * Jobbet beräknar kostnaden
   * Jobbet lagrar data (`json`) från beräkningen detta används sedan vid arbetet med kvittot. Detta för att förbättra prestanda i fortsatt arbete. Det går givetvis att uppdatera/generera om beräkningen och dess data om så önskas.
-
-### Installera projektet
-Projektet kräver PHP >= 5.5.9 samt övriga paket som [Laravel kräver.](https://laravel.com/docs/5.2/#server-requirements)
-
-1. `composer install`
-2. `cp .env.example .env`
-2. `touch database/database.sqlite`
-2. `php artisan key:generate`
-2. `php artisan migrate`
 
 
 ### Vad ni ska titta på
