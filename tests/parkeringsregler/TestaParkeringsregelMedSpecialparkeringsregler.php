@@ -170,4 +170,27 @@ class TestaParkeringsregelMedSpecialparkeringsregler extends TestCase
 
         $this->assertEquals(7.5, $parkering->kostnad);
     }
+
+
+    public function test_lang_parkering_2_dagar_10_timmar()
+    {
+        $parkering = $this->skapaParkering( 1455750000+3600*8.75 ); // ursprunglig timestamp:  2016-02-18 00:00:00
+
+        $parkering->avslutaParkering(1455750000+3600*24*2+10*3600); // Lägg till antal timmar (3600*t+sek)
+
+        $parkering = Parkering::findOrFail($parkering->id);
+
+        $this->assertEquals(25 + 25 + 5*1, $parkering->kostnad);
+    }
+
+    public function test_lang_parkering_2_dagar_10_timmar()
+    {
+        $parkering = $this->skapaParkering( 1455750000+3600*8.75 ); // ursprunglig timestamp:  2016-02-18 00:00:00
+
+        $parkering->avslutaParkering(1455750000+3600*24*31+10*3600); // Lägg till antal timmar (3600*t+sek)
+
+        $parkering = Parkering::findOrFail($parkering->id);
+
+        $this->assertEquals(25*31 + 5*1, $parkering->kostnad);
+    }
 }
