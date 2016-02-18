@@ -16,6 +16,10 @@ class Parkeringsregel extends Model
         'beskrivning',
     ];
 
+
+    /**
+     * Rellationer
+     */
     public function parkeringsomraden()
     {
         return $this->belongsToMany(Parkeringsomrade::class, 'parkeringsomrade_parkeringsregel')->withTimestamps();

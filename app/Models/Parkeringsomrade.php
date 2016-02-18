@@ -16,6 +16,10 @@ class Parkeringsomrade extends Model
         'max_kostnad_per_dygn',
     ];
 
+    /**
+     * Rellationer
+     */
+
     public function parkeringar()
     {
         return $this->hasMany(Parkering::class);

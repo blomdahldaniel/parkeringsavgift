@@ -7,7 +7,6 @@ use League\Period\Period;
 use App\Jobs\BeraknaKostnad;
 use App\Models\Parkeringsomrade;
 use App\Events\ParkeringAvslutades;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -32,6 +31,7 @@ class Parkering extends Model {
 
     public function avslutaParkering($stop_tid)
     {
+        // om ingen tid anges så sätts den aktuella tiden
         if(!isset($stop_tid)){
             $stop_tid = time();
         }
@@ -60,6 +60,8 @@ class Parkering extends Model {
     {
         return Carbon::createFromTimestamp($this->stop_tid);
     }
+
+
 
     public function anvandare()
     {
