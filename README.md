@@ -36,7 +36,7 @@ Jag tycker svenskan tjänar ett syfte när det är i form av en konkret och frik
 * TDD [`tests\`](./tests) (Riktigt många snarlika test, ingen raketforskning precis) Kommandot `phpunit --testsuite parkeringsregler` kör samtliga av de testen
 * [`Jobs\BeraknaKostnad.php`](./app/Jobs/BeraknaKostnad.php)
 * För att bläddra bland *"kvitton"* gå in på projektets root-sida i webbläsaren `/`
-* Lägg till och experimentera enkelt nya tider från `__construct()` i filen `app\Http\Controllers\ParkeringsregelController.php`
+* Lägg till och experimentera enkelt nya tider från `__construct()` i filen [`app\Http\Controllers\ParkeringsregelController.php`](./app/Http/Controllers/ParkeringsregelController.php)
 
 ### Om min lösning
 Min ambition var att bygga ett projekt som enkelt kan moduleras med flera olika komponenter i form av parkeringsområden, parkeringsregler (tider), användare och specialregler. Beräkningar av tider sker genom en loop som dag för dag och period för period går över parkeringen. Kostnaden samt data från beräkningen sparas sedan till `parkeringsobjektet`.
@@ -61,5 +61,8 @@ Just nu har jag ingen exception handeling i projektet. Detta eftersom inmatninge
 
 I detta fall när det handlar om en uppgift där jag själv behöver bygga upp hela projektet själv ser jag inte att git kan tillämpas på ett givande sätt **initialt**. Men när de grova ramarna är satta och förändringar i koden börjar ske, det är då som Git verkligen blir starkt. Men om man skapar och bygger upp ett projekt tillsammans med andra, då måste man ju givetvis jobba på ett annat sätt. Så detta förklarar min korta git-historik i detta projekt.
 
+**Repository för ORM**
+
+Skulle detta ha varit ett projekt som kan tänkas hänga i en lång tid framöver så skulle jag vilja separera allt Eloquent (ORM) -rellaterat till ett repository. Detta för att i framtiden ha möjlighet att byta ORM på ett enkelt sätt.
 
 
