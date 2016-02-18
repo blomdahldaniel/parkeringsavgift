@@ -159,7 +159,7 @@ return [
         /*
          * Third party going in
          */
-        Barryvdh\Debugbar\ServiceProvider::class,
+
 
     ],
 
@@ -210,7 +210,7 @@ return [
         /*
          * Third party going in
          */
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
 
     ],
 
