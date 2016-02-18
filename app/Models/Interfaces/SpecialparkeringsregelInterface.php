@@ -15,4 +15,10 @@ interFace SpecialparkeringsregelInterface
      * @return [int] [kostnadspaverkan i kr för parkeringen]
      */
     public function beraknaTaxa(Parkering $parkering, Parkeringsregel $regel, Period $aktivParkeringsPeriod, Carbon $aktivDagRegelStop);
+
+    public function setParkeringAvslutadFranSpecial();
+
+    public function setAktivParkeringsperiodAvslutadFranSpecial();
+
+    public function setAktivParkeringsPeriod();
 }

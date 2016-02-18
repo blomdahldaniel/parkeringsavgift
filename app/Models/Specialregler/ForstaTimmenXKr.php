@@ -31,44 +31,43 @@ class ForstaTimmenXKr extends Model implements SpecialparkeringsregelInterface
         $hittillsParkeradTid = $aktivParkeringsPeriod->getStartDate()->getTimestamp() - $parkeringsPeriod->getStartDate()->getTimestamp();
         $aterstaendeTidForRegel = 3600 - $hittillsParkeradTid;
         if($hittillsParkeradTid < 3600){
-            $specialAktivParkeringsPeriod = $aktivParkeringsPeriod->intersect(new Period($aktivParkeringsPeriod->getStartDate(), Carbon::parse($aktivParkeringsPeriod->getStartDate()->format('Y-m-d H:i:s'))->addSeconds($aterstaendeTidForRegel) ) );
-            if($specialAktivParkeringsPeriod->getTimestampInterval() < 3600){
-                $tidAttBerakna = $specialAktivParkeringsPeriod->getTimestampInterval();
+            $aktivSpecialparkeringsPeriod = $aktivParkeringsPeriod->intersect(new Period($aktivParkeringsPeriod->getStartDate(), Carbon::parse($aktivParkeringsPeriod->getStartDate()->format('Y-m-d H:i:s'))->addSeconds($aterstaendeTidForRegel) ) );
+            if($aktivSpecialparkeringsPeriod->getTimestampInterval() < 3600){
+                $tidAttBerakna = $aktivSpecialparkeringsPeriod->getTimestampInterval();
             }
             else{
                 $tidAttBerakna = 3600 - $hittillsParkeradTid;
             }
-            $kostnad_data[] = $this->setKostnadDataArray($parkering, $specialAktivParkeringsPeriod, $regel->taxa, $tidAttBerakna);
+            $kostnad_data[] = $this->setKostnadDataArray($parkering, $aktivSpecialparkeringsPeriod, $regel->taxa, $tidAttBerakna);
             if($regel->taxa != 0 || $this->gratis_timme == false){
                 $kostnad = $this->taxa * $tidAttBerakna / 3600;
             }else{
                 $kostnad = 0;
             }
 
-            //  // om det är sista perioden för hela parkeringen
-            if(Carbon::parse($specialAktivParkeringsPeriod->getEndDate()->format('Y-m-d H:i:s'))->eq($parkering->stopTidsobjekt() ) ){
-                $returnData['parkeringAvslutadFranSpecial'] = true;
-            }
-
-            //  // om det är sista perioden för hela parkeringen
-            if(Carbon::parse($specialAktivParkeringsPeriod->getEndDate()->format('Y-m-d H:i:s'))->eq($parkering->stopTidsobjekt() ) ){
-                $returnData['parkeringAvslutadFranSpecial'] = true;
+            // om det är sista perioden för hela parkeringen
+            if(Carbon::parse($aktivSpecialparkeringsPeriod->getEndDate()->format('Y-m-d H:i:s'))->eq($parkering->stopTidsobjekt() ) ){
+                // sätt data så att huvudloopen vet hur den skall fortsätta
+                $returnData['parkeringAvslutadFranSpecial'] = $this->setParkeringAvslutadFranSpecial(true);
             }
             // om specialregeln avslutat en aktiv parkeringsregel
-            elseif( Carbon::parse($specialAktivParkeringsPeriod->getEndDate()->format('Y-m-d H:i:s'))->eq( Carbon::parse($aktivParkeringsPeriod->getEndDate()->format('Y-m-d H:i:s')) ) ){
-                $returnData['aktivParkeringsperiodAvslutadFranSpecial'] = true;
+            elseif( Carbon::parse($aktivSpecialparkeringsPeriod->getEndDate()->format('Y-m-d H:i:s'))->eq( Carbon::parse($aktivParkeringsPeriod->getEndDate()->format('Y-m-d H:i:s')) ) ){
+                // sätt data så att huvudloopen vet hur den skall fortsätta
+                $returnData['aktivParkeringsperiodAvslutadFranSpecial'] = $this->setAktivParkeringsperiodAvslutadFranSpecial(true);
             }
             // Bygg om aktivParkeringsPeriod så att loopen kan fortästta på samma regel
             else{
-                $tempRegelPeriod = new Period(Carbon::parse($specialAktivParkeringsPeriod->getEndDate()->format('Y-m-d H:i:s')), $aktivDagRegelStop);
-                $returnData['aktivParkeringsPeriod'] = $tempRegelPeriod->intersect($parkeringsPeriod);
+                $tempRegelPeriod = new Period(Carbon::parse($aktivSpecialparkeringsPeriod->getEndDate()->format('Y-m-d H:i:s')), $aktivDagRegelStop);
+                $nyAktivParkeringsPeriod = $tempRegelPeriod->intersect($parkeringsPeriod);
+                // sätt data så att huvudloopen vet hur den skall fortsätta
+                $returnData['aktivParkeringsPeriod'] = $this->setAktivParkeringsPeriod($nyAktivParkeringsPeriod);
             }
 
-
+            // Förbereder datan som returneras
             $returnData = array_merge($returnData, [
                 'kostnad' => $kostnad,
                 'kostnad_data' => $kostnad_data,
-                'ny_stop_tid' => $specialAktivParkeringsPeriod->getEndDate()->format('Y-m-d H:i:s'),
+                'ny_stop_tid' => $aktivSpecialparkeringsPeriod->getEndDate()->format('Y-m-d H:i:s'),
             ]);
 
             return $returnData;
@@ -92,6 +91,21 @@ class ForstaTimmenXKr extends Model implements SpecialparkeringsregelInterface
             'taxa_total' => ($aktivRegelTaxa != 0 || $this->gratis_timme == false) ? $this->taxa * $tidKvarSekunder / 3600 : 0,
             'beskrivning' => $this->beskrivning,
         ];
+    }
+
+    public function setParkeringAvslutadFranSpecial($boolean = true)
+    {
+        return $boolean;
+    }
+
+    public function setAktivParkeringsperiodAvslutadFranSpecial($boolean = true)
+    {
+        return $boolean;
+    }
+
+    public function setAktivParkeringsPeriod($nyAktivParkeringsPeriod = "")
+    {
+        return $nyAktivParkeringsPeriod;
     }
 
     /**
