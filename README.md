@@ -6,8 +6,8 @@ Projektet kräver PHP >= 5.5.9 samt övriga paket som [Laravel kräver.](https:/
 
 1. `composer install`
 2. `cp .env.example .env`
-2. `touch database/database.sqlite`
 2. `php artisan key:generate`
+2. `touch database/database.sqlite`
 2. `php artisan migrate`
 
 ## Om projektet
