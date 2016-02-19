@@ -36,7 +36,7 @@ Eftersom jag inte är helt inne i branschen (än..) så inser jag att några av 
 * TDD [`tests\`](./tests) (Riktigt många snarlika test, ingen raketforskning precis) Kommandot `phpunit --testsuite parkeringsregler` kör samtliga av de testen
 * [`Jobs\BeraknaKostnad.php`](./app/Jobs/BeraknaKostnad.php)
 * För att bläddra bland *"kvitton"* gå in på projektets root-sida i webbläsaren `/`
-* Lägg till och experimentera enkelt nya tider från `__construct()` i filen [`app\Http\Controllers\ParkeringsregelController.php`](./app/Http/Controllers/ParkeringsregelController.php)
+* Lägg till och experimentera enkelt med nya tider från `__construct()` i filen [`app\Http\Controllers\ParkeringsregelController.php`](./app/Http/Controllers/ParkeringsregelController.php)
 
 ### Om min lösning
 Min ambition var att bygga ett projekt som enkelt kan moduleras med flera olika komponenter i form av parkeringsområden, parkeringsregler (tider), användare och specialregler. Beräkningar av tider sker genom en loop som dag för dag och period för period går över parkeringen. Kostnaden samt data från beräkningen sparas sedan till `parkeringsobjektet`.
